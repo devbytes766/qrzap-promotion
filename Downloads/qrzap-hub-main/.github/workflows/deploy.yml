@@ -32,9 +32,20 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build
+        run: npm run build -- --mode production
         env:
           NODE_ENV: production
+      
+      - name: Verify build output
+        run: |
+          echo "Checking dist folder contents:"
+          ls -la dist/ || echo "ERROR: dist folder not found"
+          echo ""
+          echo "Checking for index.html:"
+          test -f dist/index.html && echo "✓ index.html exists" || echo "✗ index.html NOT found"
+          echo ""
+          echo "Checking index.html base path:"
+          grep -q 'qrzap-promotion' dist/index.html && echo "✓ Base path correct" || echo "⚠ Base path might be incorrect"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

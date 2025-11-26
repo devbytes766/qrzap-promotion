@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === "production" ? "/qrzap-promotion/" : "/",
+  base: mode === "production" || process.env.NODE_ENV === "production" ? "/qrzap-promotion/" : "/",
   server: {
     host: "::",
     port: 8080,
